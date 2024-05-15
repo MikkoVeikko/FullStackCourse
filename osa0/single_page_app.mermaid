@@ -2,7 +2,7 @@ sequenceDiagram
     participant selain
     participant palvelin
 
-
+    note right of selain: Mennään sivulle ...exampleapp/spa:
     selain->>palvelin: Sivun avaaminen aiheuttaa 4 HTTP GET-pyyntöä palvelimelle
     activate palvelin
     palvelin-->>selain: HTML-tiedosto SPA (sivun sisältö ja rakenne)

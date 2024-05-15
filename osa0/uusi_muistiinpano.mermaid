@@ -2,6 +2,7 @@ sequenceDiagram
     participant selain
     participant palvelin
 
+    note right of selain: Luodaan uusi muistiinpano:
     selain->>palvelin: Selain lähettää lomakkeen datan HTTP POST-pyyntönä HTML:ssä olevien attribuuttien "action" ja "method" ansiota.
     activate palvelin
     note left of palvelin: Palvelimella JavaScript-koodi:
