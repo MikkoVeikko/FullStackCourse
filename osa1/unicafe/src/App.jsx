@@ -1,4 +1,5 @@
 import {useState} from 'react'
+
 const Button = ({handler, name}) =>
     <button onClick={handler}>
     {name}
