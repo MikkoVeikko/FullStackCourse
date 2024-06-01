@@ -5,6 +5,36 @@ const Button = ({handler, name}) =>
     {name}
     </button>
 
+const StatisticLine = ({text, value}) => {
+    return (
+    <div>
+        <table>
+            <tbody>
+                <tr>
+                  <td>{text}</td><td>{value}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    )
+}
+
+
+const Statistics = (props) => {
+
+    return (
+        props.all === 0 ? 'No feedback given' :
+    <>
+        <StatisticLine text='good' value={props.good}/>
+        <StatisticLine text='neutral' value={props.neutral}/>
+        <StatisticLine text='bad' value={props.bad}/>
+        <StatisticLine text='all' value={props.all}/>
+        <StatisticLine text='average' value={props.average}/>
+        <StatisticLine text='positive' value={props.positive}/>
+    </>
+    )
+}
+
 const App = () => {
 
     const [good, setGood] = useState(0)
@@ -19,7 +49,7 @@ const App = () => {
 
     const calculatePositive = () => {
         const positive = all === 0 ? 0 : (good / all) * 100
-        return positive === 0 ? 0 :  positive.toFixed(2) + '%'
+        return positive === 0 ? 0 :  positive.toFixed(1) + '%'
     }
 
     const calculateAverage = (data) => {
@@ -37,7 +67,7 @@ const App = () => {
                 count += data[key]
             }
         }
-        return count === 0 ? 0 : (total / count).toFixed(2)
+        return count === 0 ? 0 : (total / count).toFixed(1)
 }
 
     const increaseGood = () => {
@@ -57,8 +87,9 @@ const App = () => {
     }
 
     const increaseBad = () => {
-        setBad(bad + 1)
-        setAll(all + 1)
+        const updatedBad = bad + 1
+        setBad(updatedBad)
+        setAll(updatedBad + good + neutral)
         calculateAverage(data)
         calculatePositive()
     }
@@ -81,12 +112,14 @@ const App = () => {
                 name='bad'
                 />
             <h2>statistics</h2>
-            <div>good {good}</div>
-            <div>neutral {neutral}</div>
-            <div>bad {bad}</div>
-            <div>all {all}</div>
-            <div>average {calculateAverage(data)}</div>
-            <div>positive {calculatePositive()}</div>
+            <Statistics
+                good={good}
+                neutral={neutral}
+                bad={bad}
+                all={all}
+                average={calculateAverage(data)}
+                positive={calculatePositive()}
+            />
         </div>
     )
 }
