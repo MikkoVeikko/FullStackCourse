@@ -25,53 +25,30 @@ const App = () => {
     )
 }
 
-const Part1 = (parts) => {
+const Part = ({name, exercises}) => {
     return (
-        <>
-            <p>{parts[0].name} {parts[0].exercises}</p>
-        </>
+            <p>{name} {exercises}</p>
     )
 }
-
-const Part2 = (parts) => {
-    return (
-        <>
-            <p>{parts[1].name} {parts[1].exercises}</p>
-        </>
-    )
-}
-
-const Part3 = (parts) => {
-    return (
-        <>
-            <p>{parts[2].name} {parts[2].exercises}</p>
-        </>
-    )
-}
-
 const Content = ({parts}) => {
     return (
         <>
-            {Part1(parts)}
-            {Part2(parts)}
-            {Part3(parts)}
+            <Part name={parts[0].name} exercises={parts[0].exercises}/>
+            <Part name={parts[1].name} exercises={parts[1].exercises}/>
+            <Part name={parts[2].name} exercises={parts[2].exercises}/>
         </>
     )
 }
 
 const Header = ({title}) => {
     return (
-        <>
             <h1>{title}</h1>
-        </>
     )
 }
 
 const Total = ({parts}) => {
     return(
-        <>
             <p>Number of exercises {parts[0].exercises + parts[1].exercises + parts[2].exercises}</p>
-        </>
     )
 }
 
