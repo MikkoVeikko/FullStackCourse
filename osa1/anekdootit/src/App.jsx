@@ -5,7 +5,7 @@ const Button = ({action, text}) =>
         {text}
     </button>
 
-const Display1 = ({anecdotes, votes, selected}) => {
+const Display1 = ({anecdotes, votes, selected}) => { // above the buttons
     return (
         <div>
             <h2>Anecdote of the day</h2>
@@ -14,24 +14,19 @@ const Display1 = ({anecdotes, votes, selected}) => {
         </div>
     )
 }
-const Display2 = ({anecdotes, votes, highest}) => {
-    if (votes[highest] === 0) {
-        return (
+const Display2 = ({anecdotes, votes, highest}) => { // below the buttons
+        return ( votes[highest] === 0 ? // show top voted only if atleast 1 vote is given
             <div>
                 <h2>Anecdote with most votes:</h2>
                 <div>No votes given</div>
             </div>
-        )
-    }
-    else {
-        return (
+        :
             <div>
                 <h2>Anecdote with most votes:</h2>
                 <div>{anecdotes[highest]}</div>
                 <div>has {votes[highest]} votes</div>
             </div>
         )
-    }
 }
 
 const App = () => {
@@ -50,20 +45,28 @@ const App = () => {
 ]
 
     const [votes, setVotes] = useState(Array(anecdotes.length).fill(0))
+    // an array with a length of [anecdotes], each index filled with a zero.
+    // used to keep track of votes of each anecdote
 
-    const [selected, setSelected] = useState(0) // used as index of anecdote and its votes
+    const [selected, setSelected] = useState(0)
+    // used to display (random) anecdote from the [anecdotes]
+    // and to display corresponding votecount from the [votes], with the index of 'selected'
 
-    const [highest, setHighest] = useState(0) // used as index of top voted anecdote and its votes
+    const [highest, setHighest] = useState(0)
+    // used as an index of the highest voted anecdote and its corresponding votes
 
     const vote = () => {
         const updatedVotes = [...votes]
         updatedVotes[selected] ++
         setVotes(updatedVotes)
         const indexOfHighest = updatedVotes.indexOf(Math.max(...updatedVotes))
+        // find index of an anecdote with the highest number of votes
         setHighest(indexOfHighest)
     }
 
     const chooseRandom = () => setSelected(Math.floor(Math.random()*anecdotes.length))
+    // using Math.floor to always give a full number between 0 and the length of the array of the anecdotes,
+    // in this case, 8
 
     return (
         <div>
